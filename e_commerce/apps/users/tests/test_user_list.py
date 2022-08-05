@@ -49,3 +49,17 @@ class UserCreationTest(APITestCase):
         self.assertDictEqual(response.json(), {
                     'detail': 'Authentication credentials were not provided.'
                 })
+    
+    def test_non_superuser_gets_only_his_user(self):
+        """
+        Non-super user can access only his credentials.
+        """
+        user = User.objects.filter(is_superuser=False).first()
+        
+        self.client.force_authenticate(user=user)
+        response = self.client.get(self.url)
+        breakpoint()
+        self.assertEqual(response.status_code,  status.HTTP_403_FORBIDDEN)
+        self.assertDictEqual(response.json(), {
+                    'detail': 'Authentication credentials were not provided.'
+                })
