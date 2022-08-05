@@ -38,3 +38,14 @@ class UserCreationTest(APITestCase):
 
         self.assertEqual(response.status_code,  status.HTTP_200_OK)
         self.assertEqual(len(response.json()),  self.total_users+1)
+
+    def test_get_user_list_without_authentication(self):
+        """
+        Anonymus user cannot access to the list of users.
+        """
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code,  status.HTTP_403_FORBIDDEN)
+        self.assertDictEqual(response.json(), {
+                    'detail': 'Authentication credentials were not provided.'
+                })
