@@ -9,4 +9,7 @@ class ProductViewset(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     lookup_field = "slug"
 
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
     #def 

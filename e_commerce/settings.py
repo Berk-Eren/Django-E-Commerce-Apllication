@@ -42,7 +42,9 @@ INSTALLED_APPS = [
 
     'e_commerce.apps.users.apps.UsersConfig',
     'e_commerce.apps.orders.apps.OrdersConfig',
-    'e_commerce.apps.products.apps.ProductsConfig'
+    'e_commerce.apps.products.apps.ProductsConfig',
+
+    'drf_yasg' # Swagger documentation
 ]
 
 MIDDLEWARE = [
