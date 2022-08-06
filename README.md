@@ -9,6 +9,7 @@
 - Order
     - Product (OneToOne)
     - User (ForeignKey)
+    - status (Ordered, In Progress, Arrived, Cancelled)
 - User
     - Username (Email)
 - Profile
@@ -17,7 +18,6 @@
     - User
 - Tag
     - Name
-
 
 # Actions
     

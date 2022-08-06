@@ -40,7 +40,9 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'e_commerce.apps.users.apps.UsersConfig'
+    'e_commerce.apps.users.apps.UsersConfig',
+    'e_commerce.apps.orders.apps.OrdersConfig',
+    'e_commerce.apps.products.apps.ProductsConfig'
 ]
 
 MIDDLEWARE = [
