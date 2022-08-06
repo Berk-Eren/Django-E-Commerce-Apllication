@@ -3,7 +3,7 @@ import random
 from django.db import models
 
 from e_commerce.apps.users.models import User
-from e_commerce.core.slugify import unique_slugify
+from e_commerce.core.utils import unique_slugify
 
 
 class Product(models.Model):
