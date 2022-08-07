@@ -18,10 +18,6 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ["name"]
 
-    def to_representation(self, instance):
-        return instance.name
-        return super().to_representation(*args, **kwargs)
-
 
 class ProductSerializer(serializers.ModelSerializer):
     tags = serializers.ListSerializer(child=serializers.CharField())
