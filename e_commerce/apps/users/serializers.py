@@ -25,7 +25,7 @@ class UserDetailCreateSerializer(UserBaseSerializer):
     def create(self, validated_data):
         password = self.validated_data.pop("password")
 
-        model = self.__class__.Meta.model
+        model = self.Meta.model
 
         user = model.objects.create(**self.validated_data)
         user.set_password(password)
@@ -41,7 +41,7 @@ class UserUpdateSerializer(UserBaseSerializer):
 
     def update(self, instance, validated_data):
         if (password := self.validated_data.pop("password", None)):
-            model = self.__class__.Meta.model
+            model = self.Meta.model
             
             user = super().update(instance, validated_data)
             user.set_password(password)

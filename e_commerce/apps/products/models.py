@@ -13,19 +13,35 @@ class Product(models.Model):
     tags = models.ManyToManyField("Tag", related_name="products")
     stock = models.IntegerField(default=0)
     published_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=25, unique=True)
+    slug = models.SlugField(unique=True)
 
     class Meta:
-        unique_together = (('name', 'published_by'), )
+        unique_together = (('name', 'published_by_id'), )
 
     def save(self, *args, **kwargs):
         self.slug = unique_slugify(self.name + self.published_by.username)
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return "%s published by %s (%s)" % (self.name,
+                                                self.published_by.username,
+                                                    self.slug)
+
+    """@property
+    def get_published_by_id(self):
+        return self.published_by.id
+    """
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
