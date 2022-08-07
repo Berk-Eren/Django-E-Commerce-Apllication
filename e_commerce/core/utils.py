@@ -14,4 +14,4 @@ def unique_slugify(txt):
     h = hashlib.md5()
     h.update((txt + salt + str(time.time())).encode())
 
-    return h.hexdigest()
+    return h.hexdigest()[:8]

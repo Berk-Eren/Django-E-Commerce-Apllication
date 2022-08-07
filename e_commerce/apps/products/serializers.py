@@ -18,7 +18,8 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ["name"]
 
-    def to_representation(self, *args, **kwargs):
+    def to_representation(self, instance):
+        return instance.name
         return super().to_representation(*args, **kwargs)
 
 
@@ -55,3 +56,7 @@ class ProductSerializer(serializers.ModelSerializer):
             inst.products.add(instance.id)
 
         return instance
+
+    def to_representation(self, instance):
+        slug = instance.slug
+        return slug

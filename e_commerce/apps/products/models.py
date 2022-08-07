@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from django.utils.text import slugify
 
 from e_commerce.apps.users.models import User
 from e_commerce.core.utils import unique_slugify
@@ -19,7 +20,8 @@ class Product(models.Model):
         unique_together = (('name', 'published_by_id'), )
 
     def save(self, *args, **kwargs):
-        self.slug = unique_slugify(self.name + self.published_by.username)
+        slug = slugify(self.name + " " + self.published_by.username)
+        self.slug = slug + "-" + unique_slugify(slug)
         super().save(*args, **kwargs)
 
     def __str__(self):

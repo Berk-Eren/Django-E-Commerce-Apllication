@@ -37,7 +37,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include("e_commerce.apps.users.urls")),
-    # path('orders/', include("e_commerce.apps.orders.urls")),
+    path('orders/', include("e_commerce.apps.orders.urls")),
     path('products/', include("e_commerce.apps.products.urls")),
 
     #re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
