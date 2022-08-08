@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
+from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
 
     'e_commerce.apps.users.apps.UsersConfig',
     'e_commerce.apps.orders.apps.OrdersConfig',
@@ -131,3 +134,21 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'customer.User'
+
+REST_FRAMEWORK = {
+    "DEFAUKT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication"
+    ]
+}
+
+SIMPLE_JWT = {
+    #"ALGORITHM": "RS256",
+    "ROTATE_REFRESH_TOKEN": True,
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=200),
+    "AUTH_HEADER_TYPES": ("Bearer", ),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    "JTI_CLAIM": "jwt_id",
+    "ISSUER": "e-commerce-application"
+}

@@ -6,3 +6,6 @@ class UsersConfig(AppConfig):
     name = 'e_commerce.apps.users'
     default = True
     label = "customer"
+
+    def ready(self):
+        from . import signals
