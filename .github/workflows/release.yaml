@@ -1,0 +1,12 @@
+name: Release Action
+on:
+  push:
+    branches:
+      - main
+  release:
+    types: [published]
+jobs:
+  After-Release:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Released"
