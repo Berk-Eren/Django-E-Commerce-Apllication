@@ -1,0 +1,10 @@
+name: Run Linter
+on:
+  push:
+    branches:
+      - main
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    name: Run linter
+    uses: github/super-linter@v4
