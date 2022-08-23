@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include, re_path
 
 from drf_yasg.views import get_schema_view
@@ -21,13 +23,14 @@ from drf_yasg import openapi
 
 from e_commerce.core.views import AuthTokenView
 
-from rest_framework import permissions
+from rest_framework import permissions, authentication
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenObtainPairView,
     TokenVerifyView
 )
-from e_commerce.core.serializers import TokenObtainPairView as CustomTokenObtainPairView
+from e_commerce.core.serializers import TokenObtainPairView\
+                                            as CustomTokenObtainPairView
 
 
 schema_view = get_schema_view(
@@ -39,7 +42,8 @@ schema_view = get_schema_view(
       license=openapi.License(name="BSD License"),
    ),
    public=True,
-   permission_classes=[permissions.IsAuthenticated],
+   #permission_classes=[permissions.IsAuthenticated],
+   authentication_classes = [authentication.TokenAuthentication]
 )
 
 urlpatterns = [
@@ -57,4 +61,6 @@ urlpatterns = [
 
     #re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-]
+
+    path("debug-toolbar/", include('debug_toolbar.urls'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

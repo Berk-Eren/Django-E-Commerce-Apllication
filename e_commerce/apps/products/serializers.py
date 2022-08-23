@@ -12,21 +12,28 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ["name"]
         read_only_fields = ["name"]
 
+    def to_representation(self, instance):
+        return instance.name
+
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ["name"]
 
+    def to_representation(self, instance):
+        return instance.name
+
 
 class ProductSerializer(serializers.ModelSerializer):
     tags = serializers.ListSerializer(child=serializers.CharField())
     categories = serializers.ListSerializer(child=serializers.CharField())
+    published_by = serializers.StringRelatedField()
 
     class Meta:
         model = Product
         fields = ["name", "price", "categories", "tags", "published_by", 
-                    "stock"]
+                    "stock", "image"]
         read_only_fields = ["published_by", "stock"]
         validators = [
             IsUniqueWithPublisher(
@@ -54,5 +61,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return instance
 
     def to_representation(self, instance):
+        representation = super().to_representation(instance)
         slug = instance.slug
-        return slug
+        
+        return {slug: representation}

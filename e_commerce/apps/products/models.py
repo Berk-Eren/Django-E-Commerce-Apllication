@@ -15,6 +15,8 @@ class Product(models.Model):
     stock = models.IntegerField(default=0)
     published_by = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True)
+    image = models.ImageField(upload_to="photos/",
+                                default="photos/default_product.jpg")
 
     class Meta:
         unique_together = (('name', 'published_by_id'), )

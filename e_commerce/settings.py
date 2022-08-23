@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'e_commerce.apps.orders.apps.OrdersConfig',
     'e_commerce.apps.products.apps.ProductsConfig',
 
-    'drf_yasg' # Swagger documentation
+    'drf_yasg', # Swagger documentation
+    'debug_toolbar' # For Django debugging
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'e_commerce.urls'
@@ -135,6 +137,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'customer.User'
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+CACHE_TTL = 60 * 1 # In seconds
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+
 REST_FRAMEWORK = {
     "DEFAUKT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
@@ -152,3 +169,22 @@ SIMPLE_JWT = {
     "JTI_CLAIM": "jwt_id",
     "ISSUER": "e-commerce-application"
 }
+
+MEDIA_ROOT = "e_commerce/media"
+
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'USE_SESSION_AUTH': True
+}
+
+
+INTERNAL_IPS = [
+    "127.0.0.1", # For debug toolbar
+]
