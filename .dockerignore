@@ -1,0 +1,8 @@
+vue/
+.vscode/
+e_commerce/apps/*/migrations
+*/core/migrations
+*.sqlite3
+__pycache__
+
+sil*
