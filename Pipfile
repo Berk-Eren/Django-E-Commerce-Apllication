@@ -12,6 +12,7 @@ pillow = "*"
 django-debug-toolbar = "*"
 django-redis = "*"
 waitress = "*"
+tox = "*"
 
 [dev-packages]
 

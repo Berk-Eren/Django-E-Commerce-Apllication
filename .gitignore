@@ -6,3 +6,5 @@ e_commerce/apps/*/migrations
 __pycache__
 
 sil*
+waitress_main.py
+tox.ini

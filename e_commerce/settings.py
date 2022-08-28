@@ -147,14 +147,14 @@ CACHES = {
         "KEY_PREFIX": "django-e-commerce"
     }
 }
-CACHE_TTL = 60 * 1 # In seconds
+CACHE_TTL = 60 * 5 # In seconds
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 
 REST_FRAMEWORK = {
-    "DEFAUKT_AUTHENTICATION_CLASSES": [
+    "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication"
     ]
@@ -182,7 +182,11 @@ SWAGGER_SETTINGS = {
             'in': 'header'
         }
     },
-    'USE_SESSION_AUTH': True
+
+  "type": "http",
+  "scheme": "bearer",
+  "bearerFormat": "Bearer", # or whatever prefix you wish
+    'USE_SESSION_AUTH': False
 }
 
 
